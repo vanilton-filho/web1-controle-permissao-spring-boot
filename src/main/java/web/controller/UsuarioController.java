@@ -17,7 +17,9 @@ import web.controller.wrapper.UsuarioDTOWrapper;
 import web.domain.exception.DataNotFoundException;
 import web.domain.model.Usuario;
 import web.domain.service.UsuarioService;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/usuarios")
 public class UsuarioController {

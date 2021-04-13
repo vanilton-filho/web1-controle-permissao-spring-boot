@@ -45,6 +45,7 @@ public class Usuario {
 	private Boolean status = Boolean.TRUE;
 
 	@ManyToMany
+	@Column(nullable = false)
 	@JoinTable(name = "permissao_usuario", joinColumns = @JoinColumn(name = "usuario_id"), inverseJoinColumns = @JoinColumn(name = "recurso_id"))
 	private Set<Recurso> recursos = new HashSet<>();
 

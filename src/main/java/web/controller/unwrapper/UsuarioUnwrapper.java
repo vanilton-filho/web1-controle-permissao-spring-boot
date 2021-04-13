@@ -18,18 +18,17 @@ public class UsuarioUnwrapper {
 	@Autowired
 	private RecursoRepository recursoRepository;
 
-	public Usuario toDomainModel(UsuarioDTORequestBody usuarioDTOInput) {
+	public Usuario toDomainModel(UsuarioDTORequestBody usuarioDTORequestBody) {
 		Usuario usuario = new Usuario();
-		usuario.setNome(usuarioDTOInput.getNome());
-		usuario.setLogin(usuarioDTOInput.getLogin());
-		usuario.setEmail(usuarioDTOInput.getEmail());
-		usuario.setSenha(usuarioDTOInput.getSenha());
-		usuario.setDataNascimento(usuarioDTOInput.getDataNascimento());
+		usuario.setNome(usuarioDTORequestBody.getNome());
+		usuario.setLogin(usuarioDTORequestBody.getLogin());
+		usuario.setEmail(usuarioDTORequestBody.getEmail());
+		usuario.setSenha(usuarioDTORequestBody.getSenha());
+		usuario.setDataNascimento(usuarioDTORequestBody.getDataNascimento());
 
 		// Vou percorrer a lista de ids de recursos passado no DTO e
 		// associar ao usuário que será criado.
-		// TODO Implementar um serviço para Recurso
-		usuarioDTOInput.getRecursos().forEach(id -> {
+		usuarioDTORequestBody.getRecursos().forEach(id -> {
 			Recurso recurso = recursoRepository.findById(id)
 					.orElseThrow(() -> new DataNotFoundException(
 							String.format("Não existe entidade recurso de id %d", id)

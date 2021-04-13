@@ -53,13 +53,10 @@ public class UsuarioService {
 	 * @return
 	 */
 	public Usuario getByIdOrFail(Long id) {
-		Optional<Usuario> usuarioOptional = this.usuarioRepository.findById(id);
+		Usuario usuario = this.usuarioRepository.findById(id)
+				.orElseThrow(() -> new DataNotFoundException(String.format("Não existe usuário de id %d", id)));
 
-		if (usuarioOptional.isPresent()) {
-			return usuarioOptional.get();
-		}
-
-		throw new DataNotFoundException(String.format("Não existe usuário de id %d", id));
+		return usuario;
 	}
 
 	/**
@@ -93,7 +90,7 @@ public class UsuarioService {
 	@Transactional
 	public Usuario update(Long id, Usuario usuario) {
 		var usuarioEncontrado = getByIdOrFail(id);
-		BeanUtils.copyProperties(usuario, usuarioEncontrado, "id", "recursos");
+		BeanUtils.copyProperties(usuario, usuarioEncontrado, "id", "senha");
 		return usuarioEncontrado;
 	}
 
